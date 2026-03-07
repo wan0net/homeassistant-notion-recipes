@@ -1,0 +1,12 @@
+{
+  "domain": "notion_recipes",
+  "name": "Notion Recipes",
+  "version": "0.1.0",
+  "documentation": "https://github.com/wan0net/homeassistant-notion-recipes",
+  "issue_tracker": "https://github.com/wan0net/homeassistant-notion-recipes/issues",
+  "codeowners": ["@wan0net"],
+  "iot_class": "cloud_polling",
+  "config_flow": true,
+  "dependencies": [],
+  "requirements": []
+}
