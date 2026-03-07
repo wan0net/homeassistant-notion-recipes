@@ -10,8 +10,14 @@ Browse and select recipes from a Notion database in Home Assistant. Includes a c
 
 - **Recipe sensor** — exposes all recipes from a Notion database (name, ingredients, method, link, tags, cover image)
 - **Recipe select entity** — choose the active recipe; selected recipe details available as entity attributes (great for ESPHome displays)
-- **Custom Lovelace card** — gallery grid with cover images, tag filtering, text search, and click-to-expand detail view
+- **`notion-recipe-card`** — built-in Lovelace card with gallery grid, cover images, tag filtering, text search, and click-to-expand detail view
 - **Disk cache** — instant load on HA restart, graceful fallback on API errors
+- Configurable poll interval (default 10 min)
+
+## Requirements
+
+- Home Assistant 2024.1+
+- A [Notion internal integration](https://www.notion.so/my-integrations) token with access to your database
 
 ## Notion Database Schema
 
@@ -34,6 +40,8 @@ Page cover images are used as recipe thumbnails in the card.
 1. Open HACS → Integrations → three-dot menu → **Custom repositories**
 2. Add `wan0net/homeassistant-notion-recipes` as **Integration**
 3. Download and restart Home Assistant
+
+The integration automatically registers `notion-recipe-card` as a Lovelace resource — no manual resource steps needed.
 
 ### Manual
 
@@ -61,14 +69,24 @@ select_entity: select.recipes_selected   # optional, syncs selection
 
 | Entity | Type | Description |
 |--------|------|-------------|
-| `sensor.recipes` | Sensor | State: recipe count. Attributes: full recipe list and tags |
-| `select.recipes_selected` | Select | Pick active recipe. Attributes: selected recipe details |
+| `sensor.<db>` | Sensor | State: recipe count. Attributes: full recipe list and tags |
+| `select.<db>_selected` | Select | Pick active recipe. Attributes: selected recipe details |
 
 ## Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
 | Poll interval | 600s | How often to sync from Notion |
+
+## Limitations
+
+- Notion page body content is not fetched — only database properties (Name, Ingredients, Method, Link, Tags)
+- Cover image URLs from Notion expire after 1 hour; refreshed on next poll
+- Notion API rate limit: 3 req/s — increase poll interval for large databases
+
+## License
+
+MIT — see [LICENSE](LICENSE).
 
 ## AI-Generated
 
