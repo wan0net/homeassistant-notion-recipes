@@ -1,6 +1,6 @@
 """Tests for the recipe coordinator transform logic."""
 from custom_components.notion_recipes.coordinator import transform_recipe_pages
-from conftest import make_page
+from .conftest import make_page
 
 
 def test_transform_basic():
